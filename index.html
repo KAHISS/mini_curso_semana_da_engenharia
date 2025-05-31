@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minicurso: Análise de Dados com Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/styles.css">
+    <script src="src/index.js" defer></script>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#3D405B]">Minicurso de Análise de Dados</h1>
+            <p class="text-lg text-[#E07A5F] mt-2">Com Python, Lógica de Programação, Pandas e Matplotlib</p>
+        </header>
+
+        <nav class="flex justify-center mb-10">
+            <div class="flex space-x-2 md:space-x-4 bg-[#F4F1DE] p-2 rounded-full shadow-inner overflow-x-auto">
+                <button id="tab-logica" class="tab-button active text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-full whitespace-nowrap" onclick="showTab('logica')">1. Lógica de Programação</button>
+                <button id="tab-pandas" class="tab-button text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-full whitespace-nowrap" onclick="showTab('pandas')">2. Pandas</button>
+                <button id="tab-matplotlib" class="tab-button text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-full whitespace-nowrap" onclick="showTab('matplotlib')">3. Matplotlib</button>
+                <button id="tab-projeto" class="tab-button text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-full whitespace-nowrap" onclick="showTab('projeto')">4. Projeto Final</button>
+            </div>
+        </nav>
+
+        <main>
+            <div id="content-logica" class="space-y-12">
+                <section class="text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-[#81B29A]">Os Fundamentos: Lógica de Programação</h2>
+                    <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700">
+                        Antes de analisarmos dados, precisamos aprender a "pensar como um computador". A lógica de programação é a base que nos permite criar instruções claras e eficientes para resolver problemas. Nesta seção, exploraremos os conceitos essenciais que formam o alicerce de qualquer programa ou análise de dados.
+                    </p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Variáveis</h3>
+                        <p class="text-gray-600">Espaços na memória para armazenar dados (números, textos, etc.).</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block">idade = 30
+nome = "Maria"</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Tipos de Dados</h3>
+                        <p class="text-gray-600">Categorias de informações (inteiros, decimais, textos, booleanos).</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block">int, float, str, bool</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Operadores</h3>
+                        <p class="text-gray-600">Símbolos para realizar operações matemáticas, comparativas ou lógicas.</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block"># Aritméticos: +, -, * /
+# Comparativos: >, <, ==
+# Lógicos: and, or, not</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Condicionais</h3>
+                        <p class="text-gray-600">Permitem que o programa tome decisões com base em condições.</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block">if temperatura > 25:
+    print("Está quente!")
+else:
+    print("Temperatura agradável.")</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Repetição</h3>
+                        <p class="text-gray-600">Permitem executar um bloco de código várias vezes (loops).</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block"># Loop 'for'
+for i in range(3):
+    print("Repetindo...")
+
+# Loop 'while'
+contador = 0
+while contador < 3:
+    contador += 1</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Funções</h3>
+                        <p class="text-gray-600">Blocos de código reutilizáveis que realizam uma tarefa específica.</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block">def somar(a, b):
+    return a + b
+
+resultado = somar(5, 3)</pre>
+                        </div>
+                    </div>
+                    <div class="concept-card bg-white p-6 rounded-lg shadow-md" onclick="toggleDetails(this)">
+                        <h3 class="text-xl font-bold mb-2">Estruturas de Dados</h3>
+                        <p class="text-gray-600">Formas de organizar e armazenar coleções de dados.</p>
+                        <div class="details hidden mt-4">
+                            <pre class="code-block"># Lista (mutável, ordenada)
+minha_lista = [1, 2, "texto"]
+
+# Tupla (imutável, ordenada)
+minha_tupla = (1, 2, "texto")
+
+# Dicionário (chave-valor, não ordenada, mutável)
+meu_dicionario = {"nome": "João", "idade": 30}
+
+# Conjunto (elementos únicos, não ordenado)
+meu_conjunto = {1, 2, 2, 3} # {1, 2, 3}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-pandas" class="hidden space-y-12">
+                <section class="text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-[#81B29A]">A Ferramenta Essencial: Pandas</h2>
+                    <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700">
+                        Com a lógica em mente, apresentamos o Pandas, a biblioteca mais popular para manipulação e análise de dados em Python. Ela nos dá superpoderes para ler, transformar, limpar e analisar dados tabulares (como planilhas) de forma intuitiva e eficiente.
+                    </p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-4">Estruturas de Dados</h3>
+                        <p class="mb-6 text-gray-700">O Pandas se baseia em duas estruturas principais:</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-xl font-semibold mb-2">Series</h4>
+                            <p class="mb-2 text-gray-600">Uma coluna de dados, como uma lista com rótulos (índices).</p>
+                            <pre class="code-block">import pandas as pd
+s = pd.Series([10, 20, 30], name="Minha Série")
+# Saída:
+# 0    10
+# 1    20
+# 2    30
+# Name: Minha Série, dtype: int64</pre>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">DataFrame</h4>
+                            <p class="mb-2 text-gray-600">Uma tabela completa, com linhas e colunas, como uma planilha.</p>
+                            <pre class="code-block">import pandas as pd
+data = {'Nome': ['Alice', 'Bob'],
+        'Idade': [25, 30]}
+df = pd.DataFrame(data)
+# Saída:
+#     Nome  Idade
+# 0  Alice     25
+# 1    Bob     30</pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-4">Por que usar Pandas?</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Facilidade de Uso:</strong> Sintaxe simples para operações complexas.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Eficiência:</strong> Otimizado para trabalhar com grandes volumes de dados.</p>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Flexibilidade:</strong> Lê dados de CSV, Excel, SQL e muito mais.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Poder de Análise:</strong> Ferramentas integradas para agrupar, filtrar e limpar dados.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <section class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center">Operações Comuns com Pandas</h3>
+                    <p class="max-w-3xl mx-auto text-gray-700 mb-6 text-center">O Pandas oferece uma vasta gama de funções para manipular e analisar seus dados. Aqui estão algumas das mais utilizadas:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Leitura de Dados (`read_csv`, `read_excel`)</h4>
+                            <p class="mb-2 text-gray-600">Importa dados de diferentes formatos para um DataFrame.</p>
+                            <pre class="code-block"># Lendo um arquivo CSV
+df_csv = pd.read_csv('dados.csv')
+
+# Lendo um arquivo Excel
+df_excel = pd.read_excel('dados.xlsx')</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Seleção de Dados (`[]`, `loc`, `iloc`)</h4>
+                            <p class="mb-2 text-gray-600">Acessa colunas ou linhas específicas do DataFrame.</p>
+                            <pre class="code-block"># Selecionar uma coluna
+nomes = df['Nome']
+
+# Selecionar uma linha pelo índice (posição)
+primeira_linha_iloc = df.iloc[0]
+
+# Selecionar uma linha pelo rótulo do índice
+# (se o índice for um nome, por exemplo)
+# primeira_linha_loc = df.loc['Alice']</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Filtragem de Dados (`[]` com condição)</h4>
+                            <p class="mb-2 text-gray-600">Seleciona linhas que atendem a uma ou mais condições.</p>
+                            <pre class="code-block"># Filtrar pessoas com mais de 28 anos
+df_maiores_28 = df[df['Idade'] > 28]
+
+# Filtrar por múltiplas condições
+df_condicao = df[(df['Idade'] > 25) & (df['Cidade'] == 'São Paulo')]</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Agrupamento de Dados (`groupby`)</h4>
+                            <p class="mb-2 text-gray-600">Agrupa dados por uma ou mais colunas e aplica funções de agregação.</p>
+                            <pre class="code-block"># Média de idade por cidade
+media_idade_cidade = df.groupby('Cidade')['Idade'].mean()</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Limpeza de Dados (`dropna`, `fillna`)</h4>
+                            <p class="mb-2 text-gray-600">Trata valores ausentes (NaN) ou inconsistências.</p>
+                            <pre class="code-block"># Remover linhas com valores ausentes
+df_limpo = df.dropna()
+
+# Preencher valores ausentes com um valor específico
+df_preenchido = df.fillna(0)
+
+# Preencher valores ausentes com a média da coluna
+# df_media = df['Idade'].fillna(df['Idade'].mean())</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Criação de Novas Colunas</h4>
+                            <p class="mb-2 text-gray-600">Adiciona novas colunas baseadas em cálculos ou outras colunas.</p>
+                            <pre class="code-block"># Criar uma coluna 'Idade_em_anos'
+df['Idade_em_anos'] = df['Idade']
+
+# Criar uma coluna 'Status' baseado na idade
+df['Status'] = ['Adulto' if idade >= 18 else 'Jovem' for idade in df['Idade']]</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Estatísticas Descritivas (`describe`, `info`)</h4>
+                            <p class="mb-2 text-gray-600">Obtém um resumo estatístico ou informações sobre o DataFrame.</p>
+                            <pre class="code-block"># Resumo estatístico das colunas numéricas
+resumo_estatistico = df.describe()
+
+# Informações sobre o DataFrame (tipos de dados, não nulos)
+df.info()</pre>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Junção/Combinação de DataFrames (`merge`, `concat`)</h4>
+                            <p class="mb-2 text-gray-600">Combina DataFrames com base em colunas comuns ou empilhando-os.</p>
+                            <pre class="code-block"># Exemplo de merge (junção de tabelas)
+# df_total = pd.merge(df1, df2, on='ID_Comum')
+
+# Exemplo de concat (empilhar tabelas)
+# df_combinado = pd.concat([df1, df2])</pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="text-center bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Visualizando os Dados com Pandas</h3>
+                    <p class="max-w-2xl mx-auto text-gray-700 mb-6">A melhor forma de entender os dados é visualizando-os. Usando o `DataFrame` de exemplo, podemos criar um gráfico de barras para comparar as idades. Este gráfico é gerado dinamicamente com Chart.js.</p>
+                    <div class="chart-container">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </section>
+
+            </div>
+
+            <div id="content-matplotlib" class="hidden space-y-12">
+                <section class="text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-[#81B29A]">Visualização de Dados: Matplotlib</h2>
+                    <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700">
+                        Matplotlib é uma biblioteca de plotagem 2D para Python que gera figuras de qualidade de publicação em uma variedade de formatos de hardcopy e ambientes interativos em todas as plataformas. É a base para muitas outras bibliotecas de visualização e é amplamente utilizada para criar gráficos estáticos e dinâmicos.
+                    </p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-4">Por que Matplotlib com Pandas?</h3>
+                        <p class="mb-6 text-gray-700">
+                            Pandas é excelente para manipular e preparar seus dados. Matplotlib, por sua vez, é a ferramenta perfeita para transformar esses dados preparados em visualizações significativas. Juntos, eles formam um pipeline poderoso para análise e apresentação de dados.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Preparação de Dados:</strong> Pandas organiza e limpa os dados.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Visualização Flexível:</strong> Matplotlib permite personalizar cada aspecto do gráfico.</p>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <p><strong class="text-gray-800">Tipos de Gráficos:</strong> Crie desde gráficos de linha simples a gráficos 3D complexos.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-4">Exemplos de Plotagem Básica</h3>
+                        <p class="mb-6 text-gray-700">Aqui estão alguns exemplos de como você usaria Matplotlib para criar gráficos a partir de dados do Pandas.</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-xl font-semibold mb-2">Gráfico de Linha</h4>
+                            <p class="mb-2 text-gray-600">Ideal para mostrar tendências ao longo do tempo.</p>
+                            <pre class="code-block">import matplotlib.pyplot as plt
+# df['Vendas'].plot(kind='line')
+# plt.title('Vendas ao longo do Tempo')
+# plt.xlabel('Mês')
+# plt.ylabel('Vendas')
+# plt.show()</pre>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Gráfico de Dispersão</h4>
+                            <p class="mb-2 text-gray-600">Mostra a relação entre duas variáveis numéricas.</p>
+                            <pre class="code-block"># df.plot(kind='scatter', x='Idade', y='Salario')
+# plt.title('Idade vs Salário')
+# plt.xlabel('Idade')
+# plt.ylabel('Salário')
+# plt.show()</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="text-center bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Exemplo de Gráfico de Linha com Matplotlib (Simulado)</h3>
+                    <p class="max-w-2xl mx-auto text-gray-700 mb-6">Este gráfico simula um exemplo de como Matplotlib seria usado para visualizar dados de vendas ao longo de alguns meses, demonstrando uma tendência.</p>
+                    <div class="chart-container">
+                        <canvas id="matplotlibChart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <div id="content-projeto" class="hidden space-y-12">
+                <section class="text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-[#81B29A]">Projeto Final: Análise de Consumo de Energia Urbana</h2>
+                    <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700">
+                        Neste projeto final, aplicaremos os conhecimentos de Pandas e Matplotlib para analisar dados de consumo de energia em uma cidade. Este tipo de análise é fundamental para diversas engenharias, como a Elétrica (otimização de rede), Civil (planejamento urbano e infraestrutura) e Ambiental (sustentabilidade e impacto). Vamos simular um dataset de consumo mensal por setor.
+                    </p>
+                </section>
+
+                <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Passo 1: Carregamento e Inspeção dos Dados</h3>
+                    <p class="mb-4 text-gray-700">Primeiro, carregamos os dados em um DataFrame Pandas e fazemos uma inspeção inicial para entender sua estrutura.</p>
+                    <pre class="code-block">import pandas as pd
+
+# Dados simulados de consumo de energia (em GWh)
+data = {
+    'Mes': ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+    'Residencial': [100, 110, 105, 120, 115, 130],
+    'Industrial': [80, 85, 90, 88, 92, 95],
+    'Comercial': [60, 65, 62, 70, 68, 75]
+}
+df_energia = pd.DataFrame(data)
+
+# Visualizar as primeiras linhas
+# print(df_energia.head())
+
+# Obter informações sobre o DataFrame
+# print(df_energia.info())</pre>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Passo 2: Análise e Transformação de Dados</h3>
+                    <p class="mb-4 text-gray-700">Vamos calcular o consumo total de energia por mês e identificar o setor com maior consumo em cada mês.</p>
+                    <pre class="code-block"># Calcular o consumo total mensal
+df_energia['Total'] = df_energia['Residencial'] + df_energia['Industrial'] + df_energia['Comercial']
+
+# Encontrar o setor de maior consumo por mês
+def setor_maior_consumo(row):
+    setores = ['Residencial', 'Industrial', 'Comercial']
+    max_consumo = 0
+    setor = ''
+    for s in setores:
+        if row[s] > max_consumo:
+            max_consumo = row[s]
+            setor = s
+    return setor
+
+df_energia['Setor_Dominante'] = df_energia.apply(setor_maior_consumo, axis=1)
+
+# Visualizar o DataFrame com as novas colunas
+# print(df_energia)</pre>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Passo 3: Visualização dos Resultados</h3>
+                    <p class="mb-4 text-gray-700">Para entender as tendências, vamos plotar o consumo total de energia e o consumo de cada setor ao longo dos meses usando Matplotlib.</p>
+                    <pre class="code-block">import matplotlib.pyplot as plt
+
+# Plotar o consumo total
+# plt.figure(figsize=(10, 6))
+# plt.plot(df_energia['Mes'], df_energia['Total'], marker='o', label='Consumo Total')
+# plt.plot(df_energia['Mes'], df_energia['Residencial'], marker='x', label='Residencial')
+# plt.plot(df_energia['Mes'], df_energia['Industrial'], marker='s', label='Industrial')
+# plt.plot(df_energia['Mes'], df_energia['Comercial'], marker='^', label='Comercial')
+
+# plt.title('Consumo de Energia Mensal por Setor')
+# plt.xlabel('Mês')
+# plt.ylabel('Consumo (GWh)')
+# plt.legend()
+# plt.grid(True)
+# plt.show()</pre>
+                </div>
+
+                <section class="text-center bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Gráfico de Consumo de Energia (Simulado)</h3>
+                    <p class="max-w-2xl mx-auto text-gray-700 mb-6">Este gráfico interativo simula a visualização do consumo de energia por setor, mostrando as tendências ao longo dos meses. É uma representação do que seria gerado com Matplotlib a partir dos dados processados pelo Pandas.</p>
+                    <div class="chart-container">
+                        <canvas id="finalProjectChart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
