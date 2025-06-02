@@ -10,15 +10,25 @@ const buttons = {
     matplotlib: document.getElementById('tab-matplotlib'),
     projeto: document.getElementById('tab-projeto')
 };
-let ageChartInstance = null;
+const analyzeDataBtn = document.getElementById('analyze-data-btn');
+const analysisOutputDiv = document.getElementById('analysis-output');
+const analysisTextP = document.getElementById('analysis-text');
+const analysisLoadingDiv = document.getElementById('analysis-loading');
+
+let cementPriceChartInstance = null;
+let degradationLevelChartInstance = null;
 let matplotlibChartInstance = null;
 let finalProjectChartInstance = null;
 
 function showTab(tabName) {
     // Destroy all existing chart instances before switching tabs
-    if (ageChartInstance) {
-        ageChartInstance.destroy();
-        ageChartInstance = null;
+    if (cementPriceChartInstance) {
+        cementPriceChartInstance.destroy();
+        cementPriceChartInstance = null;
+    }
+    if (degradationLevelChartInstance) {
+        degradationLevelChartInstance.destroy();
+        degradationLevelChartInstance = null;
     }
     if (matplotlibChartInstance) {
         matplotlibChartInstance.destroy();
@@ -39,7 +49,8 @@ function showTab(tabName) {
 
     // Render chart only for the active tab that requires it
     if (tabName === 'pandas') {
-        renderAgeChart();
+        renderCementPriceChart();
+        renderDegradationLevelChart();
     } else if (tabName === 'matplotlib') {
         renderMatplotlibChart();
     } else if (tabName === 'projeto') {
@@ -54,14 +65,14 @@ function toggleDetails(card) {
     }
 }
 
-function renderAgeChart() {
-    const ctx = document.getElementById('ageChart').getContext('2d');
+function renderCementPriceChart() {
+    const ctx = document.getElementById('cementPriceChart').getContext('2d');
     
     const data = {
-        labels: ['Alice', 'Bob', 'Charlie'],
+        labels: ['Marca A', 'Marca B', 'Marca C'],
         datasets: [{
-            label: 'Idade dos Participantes',
-            data: [25, 30, 35],
+            label: 'Preço por Metro de Cimento (R$)',
+            data: [25.50, 28.00, 23.75],
             backgroundColor: [
                 'rgba(224, 122, 95, 0.6)',
                 'rgba(129, 178, 154, 0.6)',
@@ -86,7 +97,7 @@ function renderAgeChart() {
             },
             title: {
                 display: true,
-                text: 'Comparação de Idades',
+                text: 'Comparação de Preço do Cimento por Marca',
                 font: {
                     size: 18,
                     family: 'Inter'
@@ -99,7 +110,7 @@ function renderAgeChart() {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Idade',
+                    text: 'Preço por Metro (R$)',
                     font: {
                         size: 14,
                         family: 'Inter'
@@ -109,7 +120,7 @@ function renderAgeChart() {
             x: {
                 title: {
                     display: true,
-                    text: 'Nome',
+                    text: 'Marca',
                     font: {
                         size: 14,
                         family: 'Inter'
@@ -119,7 +130,80 @@ function renderAgeChart() {
         }
     };
 
-    ageChartInstance = new Chart(ctx, {
+    cementPriceChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+}
+
+function renderDegradationLevelChart() {
+    const ctx = document.getElementById('degradationLevelChart').getContext('2d');
+    
+    const data = {
+        labels: ['Área A', 'Área B', 'Área C'],
+        datasets: [{
+            label: 'Nível de Degradação (0-10)',
+            data: [7.2, 4.5, 8.9],
+            backgroundColor: [
+                'rgba(242, 163, 103, 0.6)',
+                'rgba(168, 218, 220, 0.6)',
+                'rgba(29, 53, 87, 0.6)'
+            ],
+            borderColor: [
+                'rgba(242, 163, 103, 1)',
+                'rgba(168, 218, 220, 1)',
+                'rgba(29, 53, 87, 1)'
+            ],
+            borderWidth: 1.5,
+            borderRadius: 5
+        }]
+    };
+
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: 'Nível de Degradação por Área',
+                font: {
+                    size: 18,
+                    family: 'Inter'
+                },
+                color: '#3D405B'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10,
+                title: {
+                    display: true,
+                    text: 'Nível de Degradação',
+                    font: {
+                        size: 14,
+                        family: 'Inter'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Área',
+                    font: {
+                        size: 14,
+                        family: 'Inter'
+                    }
+                }
+            }
+        }
+    };
+
+    degradationLevelChartInstance = new Chart(ctx, {
         type: 'bar',
         data: data,
         options: options
@@ -286,6 +370,61 @@ function renderFinalProjectChart() {
         options: options
     });
 }
+
+// Gemini API Integration
+analyzeDataBtn.addEventListener('click', async () => {
+    analysisOutputDiv.classList.remove('hidden');
+    analysisTextP.classList.add('hidden');
+    analysisLoadingDiv.classList.remove('hidden');
+
+    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+    const residentialData = [100, 110, 105, 120, 115, 130];
+    const industrialData = [80, 85, 90, 88, 92, 95];
+    const commercialData = [60, 65, 62, 70, 68, 75];
+
+    const totalData = months.map((_, i) => 
+        residentialData[i] + industrialData[i] + commercialData[i]
+    );
+
+    let prompt = `Analise os seguintes dados de consumo de energia (em GWh) por setor ao longo dos meses e forneça uma breve interpretação das tendências observadas para cada setor e para o consumo total, destacando picos e quedas.
+Dados:
+Meses: ${months.join(', ')}
+Consumo Residencial: ${residentialData.join(', ')}
+Consumo Industrial: ${industrialData.join(', ')}
+Consumo Comercial: ${commercialData.join(', ')}
+Consumo Total: ${totalData.join(', ')}`;
+
+    let chatHistory = [];
+    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+    const payload = { contents: chatHistory };
+    const apiKey = ""; 
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+            const text = result.candidates[0].content.parts[0].text;
+            analysisTextP.innerText = text;
+        } else {
+            analysisTextP.innerText = 'Não foi possível gerar a análise. Tente novamente.';
+        }
+    } catch (error) {
+        console.error('Erro ao chamar a API Gemini:', error);
+        analysisTextP.innerText = 'Ocorreu um erro ao conectar com a IA. Por favor, tente novamente mais tarde.';
+    } finally {
+        analysisLoadingDiv.classList.add('hidden');
+        analysisTextP.classList.remove('hidden');
+    }
+});
 
 // Initialize the first tab on load
 document.addEventListener('DOMContentLoaded', () => {

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style/styles.css">
+    <link rel="stylesheet" href="style/styles.css">
     <script src="src/index.js" defer></script>
 </head>
 <body class="antialiased">
@@ -261,11 +261,19 @@ df.info()</pre>
                     </div>
                 </section>
                 
-                <section class="text-center bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-bold mb-2">Visualizando os Dados com Pandas</h3>
-                    <p class="max-w-2xl mx-auto text-gray-700 mb-6">A melhor forma de entender os dados é visualizando-os. Usando o `DataFrame` de exemplo, podemos criar um gráfico de barras para comparar as idades. Este gráfico é gerado dinamicamente com Chart.js.</p>
+                <section class="text-center bg-white p-6 rounded-lg shadow-lg mb-8">
+                    <h3 class="text-2xl font-bold mb-2">Visualizando: Pesquisa de Mercado de Cimento</h3>
+                    <p class="max-w-2xl mx-auto text-gray-700 mb-6">Este gráfico compara o preço médio do metro de cimento de três marcas diferentes, simulando uma análise de pesquisa de mercado.</p>
                     <div class="chart-container">
-                        <canvas id="ageChart"></canvas>
+                        <canvas id="cementPriceChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="text-center bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Visualizando: Nível de Degradação de Áreas</h3>
+                    <p class="max-w-2xl mx-auto text-gray-700 mb-6">Este gráfico simula a análise do nível de degradação em três áreas distintas (em uma escala de 0 a 10), útil para engenharia ambiental ou civil.</p>
+                    <div class="chart-container">
+                        <canvas id="degradationLevelChart"></canvas>
                     </div>
                 </section>
 
@@ -309,6 +317,8 @@ df.info()</pre>
                             <h4 class="text-xl font-semibold mb-2">Gráfico de Linha</h4>
                             <p class="mb-2 text-gray-600">Ideal para mostrar tendências ao longo do tempo.</p>
                             <pre class="code-block">import matplotlib.pyplot as plt
+
+# Exemplo com dados de um DataFrame Pandas
 # df['Vendas'].plot(kind='line')
 # plt.title('Vendas ao longo do Tempo')
 # plt.xlabel('Mês')
@@ -319,7 +329,8 @@ df.info()</pre>
                         <div>
                             <h4 class="text-xl font-semibold mb-2">Gráfico de Dispersão</h4>
                             <p class="mb-2 text-gray-600">Mostra a relação entre duas variáveis numéricas.</p>
-                            <pre class="code-block"># df.plot(kind='scatter', x='Idade', y='Salario')
+                            <pre class="code-block"># Exemplo com dados de um DataFrame Pandas
+# df.plot(kind='scatter', x='Idade', y='Salario')
 # plt.title('Idade vs Salário')
 # plt.xlabel('Idade')
 # plt.ylabel('Salário')
@@ -414,6 +425,18 @@ df_energia['Setor_Dominante'] = df_energia.apply(setor_maior_consumo, axis=1)
                     <p class="max-w-2xl mx-auto text-gray-700 mb-6">Este gráfico interativo simula a visualização do consumo de energia por setor, mostrando as tendências ao longo dos meses. É uma representação do que seria gerado com Matplotlib a partir dos dados processados pelo Pandas.</p>
                     <div class="chart-container">
                         <canvas id="finalProjectChart"></canvas>
+                    </div>
+                    <button id="analyze-data-btn" class="mt-8 bg-[#E07A5F] hover:bg-[#c7694f] text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        ✨ Gerar Análise com IA ✨
+                    </button>
+                    <div id="analysis-output" class="mt-6 p-4 bg-[#F4F1DE] rounded-lg text-left text-gray-800 hidden">
+                        <p id="analysis-text" class="text-base"></p>
+                        <div id="analysis-loading" class="text-center text-gray-600 hidden mt-4">
+                            <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent rounded-full" role="status" aria-label="loading">
+                                <span class="sr-only">Carregando...</span>
+                            </div>
+                            <p>Analisando dados com IA...</p>
+                        </div>
                     </div>
                 </section>
             </div>
